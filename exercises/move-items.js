@@ -80,7 +80,6 @@ allItems.forEach((item => {
         let parentId = item.parentElement.id;
         let itemId = parseInt(item.id);
         let direction = parentId === 'main' ? 'toFavs' : 'toMain';
-
         updateCollections(itemId, direction);
     }) 
 }));
