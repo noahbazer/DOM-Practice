@@ -65,7 +65,7 @@ const removeFromFavs = (id) => {
 
 const swapCard = (e) => {
     const card = e.target;
-    const cardId = parseInt(card.id);
+    const cardId = card.id;
 
     if (localStorage.getItem('myFavs') && localStorage.getItem('myFavs').includes(`${cardId}`)) {
         removeFromFavs(cardId);
