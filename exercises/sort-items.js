@@ -65,12 +65,19 @@ else {
  */
 
 // Your code goes here...
-sortBtn.forEach((item) => {
-    item.addEventListener('click', () => {
-    let direction = item.dataset.sortdir;
+const clickSort = (e) => {
+    let item = e.target;
+    if (item.classList.contains('sortBtn')) {
+        let direction = item.dataset.sortdir;
+        sortData(direction);
+    }
+}
 
-    sortData(direction);
-    });
-});
+const sortCon = document.querySelector('.sort')
+sortCon.addEventListener('click', clickSort);
+
+
+
+
 
 
