@@ -41,17 +41,7 @@ const sortBtn = document.querySelectorAll('.sortBtn');
 const sortData = (direction) => {
 const mainCon = document.getElementById('main');
 let passArr = Array.from(allItems);
-let sortedArr = passArr.sort((a, b) => {
-    if (a.innerHtml < b.innerHtml) {
-        return 1;
-    }
-    else if (a.innerHtml > b.innerHtml) {
-        return -1;
-    }
-    else {
-        return 0;
-    }
-});
+let sortedArr = passArr.sort();
 
 if (direction === 'asc') {
     for (let i = 0; i < sortedArr.length; i++) {
