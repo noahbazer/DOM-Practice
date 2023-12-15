@@ -38,43 +38,43 @@
  */
 
 // Your code goes here...
-const cards = document.querySelectorAll('.card')
+const cards = document.querySelectorAll('.card');
 
-const setOnLoad = (id) => {
-    for (let i = 1; i < cards.length + 1; i++) {
-        if (localStorage.getItem('myFavs').includes(`${id}`)) {
-            cards[i - 1].style.backgroundColor = 'red';
+const setOnLoad = () => {
+    for (let i = 0; i < cards.length; i++) {
+        const cardId = i + 1;
+        if (localStorage.getItem('myFavs') && localStorage.getItem('myFavs').includes(`${cardId}`)) {
+            cards[i].style.backgroundColor = 'red';
         }
     }
-}
+};
 
 const addToFavs = (id) => {
-    let currentStorage = localStorage.getItem('myFavs');
-    currentStorage += `${id}`;
+    let currentStorage = localStorage.getItem('myFavs') || '';
+    currentStorage += ` ${id}`;
+    localStorage.setItem('myFavs', currentStorage);
     cards[id - 1].style.backgroundColor = 'red';
-}
+};
 
 const removeFromFavs = (id) => {
-    let tempArr = localStorage.getItem('myFavs').split(' ');
-    tempArr.splice(storageArr.indexOf(id), 1).join(',');
-    localStorage.setItem('myFavs', tempArr);
+    let tempArr = (localStorage.getItem('myFavs') || '').split(' ');
+    tempArr = tempArr.filter(itemId => itemId !== `${id}`);
+    localStorage.setItem('myFavs', tempArr.join(' '));
     cards[id - 1].style.backgroundColor = 'white';
-}
+};
 
 const swapCard = (e) => {
     const card = e.target;
-    if (localStorage.getItem('myFavs').includes(`${card.id}`)) {
-        addToFavs(card.id);
-        card.style.backgroundColor = 'red';
-    }
-    else {
-        removeFromFavs(card.id);
-        card.style.backgroundColor = 'white';
-    }
-}
+    const cardId = parseInt(card.id);
 
-
+    if (localStorage.getItem('myFavs') && localStorage.getItem('myFavs').includes(`${cardId}`)) {
+        removeFromFavs(cardId);
+    } else {
+        addToFavs(cardId);
+    }
+};
 
 const container = document.querySelector('.cardsContainer');
-
 container.addEventListener('click', swapCard);
+
+setOnLoad();
