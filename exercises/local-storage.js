@@ -38,3 +38,43 @@
  */
 
 // Your code goes here...
+const cards = document.querySelectorAll('.card');
+
+const setOnLoad = () => {
+    for (let i = 0; i < cards.length; i++) {
+        const cardId = i + 1;
+        if (localStorage.getItem('myFavs') && localStorage.getItem('myFavs').includes(`${cardId}`)) {
+            cards[i].style.backgroundColor = 'red';
+        }
+    }
+};
+
+const addToFavs = (id) => {
+    let currentStorage = localStorage.getItem('myFavs') || '';
+    currentStorage += ` ${id}`;
+    localStorage.setItem('myFavs', currentStorage);
+    cards[id - 1].style.backgroundColor = 'red';
+};
+
+const removeFromFavs = (id) => {
+    let tempArr = (localStorage.getItem('myFavs') || '').split(' ');
+    tempArr = tempArr.filter(itemId => itemId !== `${id}`);
+    localStorage.setItem('myFavs', tempArr.join(' '));
+    cards[id - 1].style.backgroundColor = 'white';
+};
+
+const swapCard = (e) => {
+    const card = e.target;
+    const cardId = card.id;
+
+    if (localStorage.getItem('myFavs') && localStorage.getItem('myFavs').includes(`${cardId}`)) {
+        removeFromFavs(cardId);
+    } else {
+        addToFavs(cardId);
+    }
+};
+
+const container = document.querySelector('.cardsContainer');
+container.addEventListener('click', swapCard);
+
+setOnLoad();
