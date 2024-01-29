@@ -12,7 +12,7 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll('.item');
 
 
 /**
@@ -23,7 +23,7 @@
  */
 
 // Your code goes here...
-
+const sortBtn = document.querySelectorAll('.sortBtn');
 
 
 /**
@@ -38,7 +38,22 @@
  */
 
 // Your code goes here...
+const sortData = (direction) => {
+const mainCon = document.getElementById('main');
+let passArr = Array.from(allItems);
+let sortedArr = passArr.sort();
 
+if (direction === 'asc') {
+    for (let i = 0; i < sortedArr.length; i++) {
+        mainCon.appendChild(sortedArr[i]);
+    }
+}
+else {
+    for (let i = sortedArr.length -1; i >= 0; i--) {
+        mainCon.appendChild(sortedArr[i]);
+    }
+}
+};
 
 
 /**
@@ -50,5 +65,19 @@
  */
 
 // Your code goes here...
+const clickSort = (e) => {
+    let item = e.target;
+    if (item.classList.contains('sortBtn')) {
+        let direction = item.dataset.sortdir;
+        sortData(direction);
+    }
+}
+
+const sortCon = document.querySelector('.sort')
+sortCon.addEventListener('click', clickSort);
+
+
+
+
 
 
